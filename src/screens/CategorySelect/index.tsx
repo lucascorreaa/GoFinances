@@ -32,6 +32,19 @@ export function CategorySelect({
     setCategory,
     closeSelectCategory
 } : Props ) {
+
+    function handleCategorySelect(item: Category){
+        if(item.key === category.key) {
+            setCategory({
+                key: 'category',
+                name: 'Categoria',
+            })
+        } else {
+            setCategory(item);
+        }
+        
+    }
+
     return (
         <Container>
             <Header>
@@ -42,8 +55,11 @@ export function CategorySelect({
             data={categories}
             style={{flex: 1, width: '100%'}}
             keyExtractor={(item) => item.key}
-            renderItem={({item}) => (
-                <Category>
+            renderItem={({ item }) => (
+                <Category
+                    onPress={() => handleCategorySelect(item)}
+                    isActive={category.key === item.key}
+                >
                     <Icon name={item.icon} />
                     <Name>{item.name}</Name>
                 </Category>
